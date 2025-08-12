@@ -40,6 +40,7 @@ const getSortedGoods = (goods: string[], sortType: SortType): string[] => {
 export const App: React.FC = () => {
   const [sortType, setSortType] = useState<SortType>(SortType.None);
   const [revers, setRevers] = useState(false);
+
   let visibleGoods = getSortedGoods(goodsFromServer, sortType);
 
   if (revers) {
@@ -97,7 +98,9 @@ export const App: React.FC = () => {
         )}
       </div>
 
-      <ul>
+      {visibleGoods.length === 0 ? (
+        <p>No goods available</p>
+      ) : (
         <ul>
           {visibleGoods.map(good => (
             <li data-cy="Good" key={good}>
@@ -105,7 +108,7 @@ export const App: React.FC = () => {
             </li>
           ))}
         </ul>
-      </ul>
+      )}
     </div>
   );
 };
